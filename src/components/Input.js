@@ -20,7 +20,7 @@ export const InputFields = () => {
     dispatch(person.actions.addItem(postUser))
     setNewName('');
     setNewSurname('');
-  }
+  };
 
   return (
     <Wrapper>

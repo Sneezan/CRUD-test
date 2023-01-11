@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createSlice } from '@reduxjs/toolkit';
 
 const person = createSlice({
@@ -30,8 +31,10 @@ const person = createSlice({
     },
     addItem: (store, action) => {
       store.items.push(action.payload)
+    },
+    UPDATE_ITEM: (state, action) => {
+      state.items[action.fullname].fullname = action.payload
     }
   }
 });
-
 export default person;
