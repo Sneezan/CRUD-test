@@ -46,8 +46,8 @@ const person = createSlice({
       store.filters = updatedFilters
     },
     editTask: (state, action) => {
-      state.project[action.payload.projectindex].tasks[
-        action.payload.taskindex
+      state.project[action.payload.fullname].item[
+        action.payload.id
       ].title = action.payload.title;
     },
   }

@@ -123,6 +123,7 @@ const StyledCheckbox = styled.input`
   appearance: none;
   color: black;
   height: 1em;
+  width: 3rem;
   border: none;
   place-content: center;
   position: absolute;
