@@ -11,6 +11,7 @@ export const ListOfSubmits = () => {
   const onCompletedToggle = (id) => {
     dispatch(person.actions.toggleItem(id))
   }
+
   return (
     <Wrapper>
       <InnerWrapper>
@@ -34,6 +35,8 @@ export const ListOfSubmits = () => {
     </Wrapper>
   )
 }
+
+/* <div onClick={() => editTodo(idx)}>{selected === idx ? text : todo}</div> */
 
 const Wrapper = styled(OuterWrapper)`
 display: flex;

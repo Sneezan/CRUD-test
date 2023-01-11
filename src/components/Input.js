@@ -42,9 +42,12 @@ export const InputFields = () => {
               onChange={(e) => setNewSurname(e.target.value)}
               placeholder="surname" />
           </Label>
-          <button type="submit"> Create </button>
         </Form>
       </InnerWrapper>
+      <ButtonWrap>
+        <button type="submit" onClick={handleSubmit}> Create </button>
+        <button type="submit"> Update </button>
+      </ButtonWrap>
     </Wrapper>
   )
 }
@@ -59,6 +62,12 @@ display: flex;
 position: absolute;
 right: 80px;
 top: 80px;
+`
+const ButtonWrap = styled(OuterWrapper)`
+display: flex;
+position: absolute;
+top: 100px;
+right: 110px;
 `
 
 const Form = styled.form`
