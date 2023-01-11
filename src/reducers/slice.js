@@ -32,9 +32,24 @@ const person = createSlice({
     addItem: (store, action) => {
       store.items.push(action.payload)
     },
-    UPDATE_ITEM: (state, action) => {
-      state.items[action.fullname].fullname = action.payload
-    }
+    filterItem: (store, action) => {
+      const updatedFilters = store.filters.map(filter => {
+        if (filter.id === action.payload) {
+          return {
+            ...filter,
+            status: !filter.status
+          }
+        } else {
+          return filter
+        }
+      })
+      store.filters = updatedFilters
+    },
+    editTask: (state, action) => {
+      state.project[action.payload.projectindex].tasks[
+        action.payload.taskindex
+      ].title = action.payload.title;
+    },
   }
 });
 export default person;

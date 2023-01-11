@@ -46,7 +46,7 @@ export const InputFields = () => {
       </InnerWrapper>
       <ButtonWrap>
         <button type="submit" onClick={handleSubmit}> Create </button>
-        <button type="submit"> Update </button>
+        {/* <button type="submit"> Update </button> */}
       </ButtonWrap>
     </Wrapper>
   )
@@ -67,7 +67,7 @@ const ButtonWrap = styled(OuterWrapper)`
 display: flex;
 position: absolute;
 top: 100px;
-right: 110px;
+right: 140px;
 `
 
 const Form = styled.form`
