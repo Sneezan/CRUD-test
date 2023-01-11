@@ -75,15 +75,17 @@ position: relative;
 const InnerWrapper = styled.div`
 display: flex;
 position: absolute;
-left: 80px;
-top: 0;
+left: -110px;
+top: 100px;
+border: 2px solid red;
+height: 110px;
 `
 
 const ButtonWrap = styled.div`
 display: flex;
 position: absolute;
-left: 0px;
-bottom: -80px;
+left: 70px;
+bottom: -50px;
 `
 
 const Label = styled.label`

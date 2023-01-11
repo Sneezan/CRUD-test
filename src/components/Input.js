@@ -60,14 +60,14 @@ position: relative;
 const InnerWrapper = styled.div`
 display: flex;
 position: absolute;
-right: 80px;
-top: 80px;
+left: 200px;
+top: 110px;
 `
 const ButtonWrap = styled(OuterWrapper)`
 display: flex;
 position: absolute;
-top: 100px;
-right: 140px;
+top: 240px;
+left: 250px;
 `
 
 const Form = styled.form`
