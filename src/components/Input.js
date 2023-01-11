@@ -12,12 +12,12 @@ export const InputFields = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const postNewTask = {
+    const postUser = {
       id: uniqid(),
       fullname: [NewSurname, NewName],
       completed: false
     };
-    dispatch(person.actions.addItem(postNewTask))
+    dispatch(person.actions.addItem(postUser))
     setNewName('');
     setNewSurname('');
   }
@@ -44,7 +44,6 @@ export const InputFields = () => {
           </Label>
           <button type="submit"> Create </button>
         </Form>
-
       </InnerWrapper>
     </Wrapper>
   )

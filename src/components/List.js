@@ -18,12 +18,12 @@ export const ListOfSubmits = () => {
           {items.map((singleUser) => {
             return (
               <div>
-                <input
+                <StyledCheckbox
                   type="checkbox"
                   checked={singleUser.toggled}
-                  onChange={() => onCompletedToggle(singleUser.id)} />
+                  onChange={() => onCompletedToggle(`${singleUser.id}`)} />
 
-                <Label htmlFor={singleUser.id}>{`${singleUser.fullname}`}</Label>
+                <Label htmlFor={(`${singleUser.id}`)} className={singleUser.toggled ? 'toggle-person' : ''}>{`${singleUser.fullname}`}</Label>
                 <button type="button" onClick={() => dispatch(person.actions.updateItem(singleUser.id))}> edit</button>
                 <button type="button" onClick={() => dispatch(person.actions.deleteItem(singleUser.id))}> delete</button>
               </div>
@@ -47,9 +47,9 @@ left: 80px;
 top: 0;
 `
 const Label = styled.label`
-:focus{
-    background-color: red;
-} 
+.singleUser.toggled{
+  background-color: red;
+}
 `
 // const Form = styled.form`
 // display: grid;
@@ -58,3 +58,14 @@ const Label = styled.label`
 // display: flex;
 // padding: 10px;
 // `
+
+const StyledCheckbox = styled.input`
+  cursor: pointer;
+  appearance: none;
+  color: black;
+  width: 8em;
+  height: 1em;
+  border: none;
+  place-content: center;
+  position: absolute;
+`

@@ -19,4 +19,10 @@ code {
   cursor:pointer;
 }
 
+.toggle-person :checked{
+  background-color: rgb(130, 130, 165);
+}
 
+.toggle-person{
+  background-color: rgb(175, 175, 213);
+}
