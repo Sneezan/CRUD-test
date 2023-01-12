@@ -10,6 +10,7 @@ export const InputFields = () => {
   const [NewName, setNewName] = useState('')
   const [NewSurname, setNewSurname] = useState('')
   const [editable, setEditable] = useState(false);
+  // const [editedPerson, setEditedPerson] = useState('')
   // const selected = useSelector((store) => store.person.selectedPerson);
 
   const handleSubmit = (event) => {

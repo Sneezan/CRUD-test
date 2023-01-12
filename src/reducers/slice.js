@@ -14,7 +14,7 @@ const person = createSlice({
     ],
     selectedPerson: {
       id: '',
-      fullname: [],
+      fullname: [''],
       toggled: false 
     }
   },
@@ -52,7 +52,7 @@ const person = createSlice({
       store.items.push(action.payload)
     },
     updatePerson: (store, action) => {
-      store.selectedPerson.push(action.payload)
+      store.selectedPerson = action.payload
     }
 
   }

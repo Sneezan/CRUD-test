@@ -77,7 +77,7 @@ list-style-type: none;
 // padding: 10px;
 // `
 
-const ClickableList = styled.li`
+const ClickableList = styled.div`
 cursor: pointer;
 width: 190px;
 height: 25px;
