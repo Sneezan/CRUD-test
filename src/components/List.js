@@ -6,7 +6,7 @@ import { OuterWrapper } from './GlobalStyles'
 
 export const ListOfSubmits = () => {
   const items = useSelector((store) => store.person.items);
-  const [editable, setEditable] = useState(false);
+  const [selectedPerson, setSelectedPerson] = useState('');
 
   const dispatch = useDispatch();
 
@@ -14,13 +14,13 @@ export const ListOfSubmits = () => {
     dispatch(person.actions.toggleItem(id))
   }
 
-  const editTask = () => {
-    setEditable(true);
-  };
-
-  const savingText = () => {
-    setEditable(false);
-  };
+  const handleSelectPersonToggle = (personId) => {
+    if (selectedPerson === personId) {
+      setSelectedPerson('');
+    } else {
+      setSelectedPerson(personId);
+    }
+  }
 
   return (
     <Wrapper>
@@ -28,35 +28,17 @@ export const ListOfSubmits = () => {
         <section>
           {items.map((singleUser) => {
             return (
-              <ClickableField contentEditable={editable}>
+              <ClickableList>
                 <StyledCheckbox
                   type="checkbox"
                   checked={singleUser.toggled}
-                  onChange={() => onCompletedToggle(`${singleUser.fullname}`)} />
+                  onChange={() => onCompletedToggle(`${singleUser.id}`)} />
 
-                <Label htmlFor={(`${singleUser.id}`)} className={singleUser.toggled ? 'toggle-person' : ''}>{`${singleUser.fullname}`}</Label>
-                <ButtonWrap>
-                  {!editable && (
-                    <button
-                      type="button"
-                      onClick={editTask}
-                      onKeyDown={(e) => e.key === 'Enter' && editTask()}>
-                  Edit
-                    </button>
-                  )}
-                  {editable && (
-                    <button
-                      type="button"
-                      onClick={savingText}
-                      onKeyDown={(e) => e.key === 'Enter' && savingText()}>
-                  Update
-                    </button>
-                  )}
-                </ButtonWrap>
+                <List onClick={() => { handleSelectPersonToggle(singleUser.id) }} htmlFor={(`${singleUser.id}`)} className={selectedPerson === singleUser.id ? 'toggle-person' : ''}>{`${singleUser.fullname}`}</List>
                 <DeleteWrap>
                   <button type="button" onClick={() => dispatch(person.actions.deleteItem(singleUser.id))}> delete</button>
                 </DeleteWrap>
-              </ClickableField>
+              </ClickableList>
             );
           })}
         </section>
@@ -81,16 +63,10 @@ border: 2px solid red;
 height: 110px;
 `
 
-const ButtonWrap = styled.div`
-display: flex;
-position: absolute;
-left: 70px;
-bottom: -50px;
-`
-
-const Label = styled.label`
-.singleUser.toggled{
-  background-color: red;
+const List = styled.li`
+list-style-type: none;
+&.toggle-person{
+  background-color: lightblue;
 }
 `
 // const Form = styled.form`
@@ -101,12 +77,11 @@ const Label = styled.label`
 // padding: 10px;
 // `
 
-const ClickableField = styled.div`
+const ClickableList = styled.li`
 cursor: pointer;
 width: 190px;
 height: 25px;
 display: grid;
-
 &:focus{
   background-color: lightblue;
 }

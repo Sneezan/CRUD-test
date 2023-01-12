@@ -9,6 +9,8 @@ export const InputFields = () => {
   const dispatch = useDispatch()
   const [NewName, setNewName] = useState('')
   const [NewSurname, setNewSurname] = useState('')
+  const [editable, setEditable] = useState(false);
+  // const selected = useSelector((store) => store.person.selectedPerson);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,10 +24,14 @@ export const InputFields = () => {
     setNewSurname('');
   };
 
+  const editItem = () => {
+    setEditable(true);
+  };
+
   return (
     <Wrapper>
       <InnerWrapper>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} ontentEditable={editable}>
           <Label htmlFor="name">
             <input
               type="text"
@@ -45,6 +51,22 @@ export const InputFields = () => {
         </Form>
       </InnerWrapper>
       <ButtonWrap>
+        {!editable && (
+          <button
+            type="button"
+            onClick={editItem}
+            onKeyDown={(e) => e.key === 'Enter' && editItem()}>
+                  Edit
+          </button>
+        )}
+        {editable && (
+          <button
+            type="button"
+            // onClick={""}
+            onKeyDown={(e) => e.key === 'Enter' && editItem()}>
+                  Update
+          </button>
+        )}
         <button type="submit" onClick={handleSubmit}> Create </button>
         {/* <button type="submit"> Update </button> */}
       </ButtonWrap>

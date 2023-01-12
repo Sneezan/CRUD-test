@@ -11,8 +11,14 @@ const person = createSlice({
       { id: '2',
         fullname: [' Anna, Andersson'],
         toggled: false }
-    ]
+    ],
+    selectedPerson: {
+      id: '',
+      fullname: [],
+      toggled: false 
+    }
   },
+  
   reducers: {
     toggleItem: (store, action) => {
       console.log(store);
@@ -22,9 +28,6 @@ const person = createSlice({
           item.toggled = !item.toggled
         }
       })
-    },
-    updateItem: (store, action) => {
-      store.items.splice(action.payload)
     },
     deleteItem: (store, action) => {
       store.items = store.items.filter((item) => item.id !== action.payload)
@@ -45,11 +48,14 @@ const person = createSlice({
       })
       store.filters = updatedFilters
     },
-    editTask: (state, action) => {
-      state.project[action.payload.fullname].item[
-        action.payload.id
-      ].title = action.payload.title;
+    editItem: (store, action) => {
+      store.items.push(action.payload)
     },
+    updatePerson: (store, action) => {
+      store.selectedPerson.push(action.payload)
+    }
+
   }
 });
 export default person;
+
