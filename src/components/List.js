@@ -10,9 +10,9 @@ export const ListOfSubmits = () => {
 
   const dispatch = useDispatch();
 
-  const onCompletedToggle = (id) => {
-    dispatch(person.actions.toggleItem(id))
-  }
+  // const onCompletedToggle = (id) => {
+  //   dispatch(person.actions.toggleItem(id))
+  // }
 
   const handleSelectPersonToggle = (personId) => {
     if (selectedPerson === personId) {
@@ -29,10 +29,10 @@ export const ListOfSubmits = () => {
           {items.map((singleUser) => {
             return (
               <ClickableList>
-                <StyledCheckbox
+                {/* <StyledCheckbox
                   type="checkbox"
                   checked={singleUser.toggled}
-                  onChange={() => onCompletedToggle(`${singleUser.id}`)} />
+                  onChange={() => onCompletedToggle(`${singleUser.id}`)} /> */}
 
                 <List onClick={() => { handleSelectPersonToggle(singleUser.id) }} htmlFor={(`${singleUser.id}`)} className={selectedPerson === singleUser.id ? 'toggle-person' : ''}>{`${singleUser.fullname}`}</List>
                 <DeleteWrap>
@@ -69,14 +69,6 @@ list-style-type: none;
   background-color: lightblue;
 }
 `
-// const Form = styled.form`
-// display: grid;
-// `
-// const Label = styled.label`
-// display: flex;
-// padding: 10px;
-// `
-
 const ClickableList = styled.div`
 cursor: pointer;
 width: 190px;
@@ -96,12 +88,12 @@ top: -20px;
 
 `
 
-const StyledCheckbox = styled.input`
-  appearance: none;
-  color: black;
-  height: 1em;
-  width: 3rem;
-  border: none;
-  place-content: center;
-  position: absolute;
-`
+// const StyledCheckbox = styled.input`
+//   appearance: none;
+//   color: black;
+//   height: 1em;
+//   width: 3rem;
+//   border: none;
+//   place-content: center;
+//   position: absolute;
+// `
