@@ -45,14 +45,11 @@ const person = createSlice({
       store.filters = updatedFilters
     },
     editItem: (store, action) => {
-      store.items.push(action.payload)
+      store.selectedPerson = action.payload;
     },
     toggledPerson: (store, action) => {
       store.selectedPerson = action.payload;
     },
-    setNewName: (store, action) => {
-      store.selectedPerson(action.payload)
-    }
   }
 });
 export default person;

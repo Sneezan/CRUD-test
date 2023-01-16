@@ -31,31 +31,44 @@ export const InputFields = () => {
     setNewSurname(selected[0]);
   }, [selected])
 
+  const handleChange = (event) => {
+    setEditable(event.target.value);
+  };
+
   const editItem = () => {
     setEditable(true);
+  };
+
+  const savingText = () => {
+    setEditable(false);
   };
 
   return (
     <Wrapper>
       <InnerWrapper>
-        <Form onSubmit={handleSubmit} otentEditable={editable}>
-          <Label htmlFor="name">
-            <input
-              type="text"
-              name="name"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              placeholder="name" />
-          </Label>
-          <Label htmlFor="surname">
-            <input
-              type="text"
-              name="surname"
-              value={newSurname}
-              onChange={(e) => setNewSurname(e.target.value)}
-              placeholder="surname" />
-          </Label>
-        </Form>
+        <div
+          contentEditable={editable}>
+          <Form onSubmit={handleSubmit}>
+            <Label htmlFor="name">
+              <input
+                type="text"
+                name="name"
+                value={newName}
+                onInput={handleChange}
+                onChange={(e) => setNewName(e.target.value)}
+                placeholder="name" />
+            </Label>
+            <Label htmlFor="surname">
+              <input
+                type="text"
+                name="surname"
+                value={newSurname}
+                onInput={handleChange}
+                onChange={(e) => setNewSurname(e.target.value)}
+                placeholder="surname" />
+            </Label>
+          </Form>
+        </div>
       </InnerWrapper>
       <ButtonWrap>
         {!editable && (
@@ -68,9 +81,9 @@ export const InputFields = () => {
         )}
         {editable && (
           <button
-            type="button"
-            // onClick={""}
-            onKeyDown={(e) => e.key === 'Enter' && editItem()}>
+            type="submit"
+            onClick={savingText}
+            onKeyDown={(e) => e.key === 'Enter' && savingText()}>
                   Update
           </button>
         )}

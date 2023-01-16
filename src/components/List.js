@@ -13,10 +13,10 @@ export const ListOfSubmits = () => {
   const handleSelectPersonToggle = (personId) => {
     if (selectedPerson === personId) {
       setSelectedPerson('')
+      dispatch(person.actions.toggledPerson(selectedPerson));
     } else {
       setSelectedPerson(personId);
     }
-    dispatch(person.actions.toggledPerson(selectedPerson));
   }
   console.log(dispatch(person.actions.toggledPerson(selectedPerson)));
 
