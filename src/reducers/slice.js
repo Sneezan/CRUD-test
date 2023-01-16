@@ -6,29 +6,25 @@ const person = createSlice({
   initialState: {
     items: [
       { id: '1',
-        fullname: [' Kalle, Karlsson'],
-        toggled: false },
+        fullname: ['Karlsson', 'Kalle'],
+        name: 'Kalle',
+        surname: 'Karlsson',
+ },
       { id: '2',
-        fullname: [' Anna, Andersson'],
-        toggled: false }
+        fullname: ['Andersson', 'Anna'],
+        name: 'Anna',
+        surname: 'Andersson',
+ }
     ],
     selectedPerson: {
       id: '',
-      fullname: [''],
-      toggled: false 
+      fullname: ['', ''],
+      name: '',
+      surname: '',
     }
   },
   
   reducers: {
-    toggleItem: (store, action) => {
-      console.log(store);
-      console.log(action);
-      store.items.forEach((item) => {
-        if (item.id === action.payload) {
-          item.toggled = !item.toggled
-        }
-      })
-    },
     deleteItem: (store, action) => {
       store.items = store.items.filter((item) => item.id !== action.payload)
     },
@@ -51,10 +47,12 @@ const person = createSlice({
     editItem: (store, action) => {
       store.items.push(action.payload)
     },
-    updatePerson: (store, action) => {
-      store.selectedPerson = action.payload
+    toggledPerson: (store, action) => {
+      store.selectedPerson = action.payload;
+    },
+    setNewName: (store, action) => {
+      store.selectedPerson(action.payload)
     }
-
   }
 });
 export default person;

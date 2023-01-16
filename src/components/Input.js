@@ -1,29 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import uniqid from 'uniqid'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import person from 'reducers/slice'
 import { OuterWrapper } from './GlobalStyles'
 
 export const InputFields = () => {
   const dispatch = useDispatch()
-  const [NewName, setNewName] = useState('')
-  const [NewSurname, setNewSurname] = useState('')
+  const [newName, setNewName] = useState('')
+  const [newSurname, setNewSurname] = useState('')
   const [editable, setEditable] = useState(false);
   // const [editedPerson, setEditedPerson] = useState('')
-  // const selected = useSelector((store) => store.person.selectedPerson);
+  const selected = useSelector((store) => store.person.selectedPerson);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const postUser = {
       id: uniqid(),
-      fullname: [NewSurname, NewName],
-      completed: false
+      fullname: [newSurname, newName],
+      name: [newName],
+      surname: [newSurname]
     };
     dispatch(person.actions.addItem(postUser))
     setNewName('');
     setNewSurname('');
   };
+
+  useEffect(() => {
+    setNewName(selected[1]);
+    setNewSurname(selected[0]);
+  }, [selected])
 
   const editItem = () => {
     setEditable(true);
@@ -32,12 +38,12 @@ export const InputFields = () => {
   return (
     <Wrapper>
       <InnerWrapper>
-        <Form onSubmit={handleSubmit} ontentEditable={editable}>
+        <Form onSubmit={handleSubmit} otentEditable={editable}>
           <Label htmlFor="name">
             <input
               type="text"
               name="name"
-              value={NewName}
+              value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="name" />
           </Label>
@@ -45,7 +51,7 @@ export const InputFields = () => {
             <input
               type="text"
               name="surname"
-              value={NewSurname}
+              value={newSurname}
               onChange={(e) => setNewSurname(e.target.value)}
               placeholder="surname" />
           </Label>

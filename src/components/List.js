@@ -10,17 +10,15 @@ export const ListOfSubmits = () => {
 
   const dispatch = useDispatch();
 
-  // const onCompletedToggle = (id) => {
-  //   dispatch(person.actions.toggleItem(id))
-  // }
-
   const handleSelectPersonToggle = (personId) => {
     if (selectedPerson === personId) {
-      setSelectedPerson('');
+      setSelectedPerson('')
     } else {
       setSelectedPerson(personId);
     }
+    dispatch(person.actions.toggledPerson(selectedPerson));
   }
+  console.log(dispatch(person.actions.toggledPerson(selectedPerson)));
 
   return (
     <Wrapper>
@@ -34,7 +32,13 @@ export const ListOfSubmits = () => {
                   checked={singleUser.toggled}
                   onChange={() => onCompletedToggle(`${singleUser.id}`)} /> */}
 
-                <List onClick={() => { handleSelectPersonToggle(singleUser.id) }} htmlFor={(`${singleUser.id}`)} className={selectedPerson === singleUser.id ? 'toggle-person' : ''}>{`${singleUser.fullname}`}</List>
+                <List
+                  onClick={() => {
+                    handleSelectPersonToggle(singleUser.fullname)
+                  }}
+                  className={selectedPerson === singleUser.fullname ? 'toggle-person' : ''}>
+                  {`${singleUser.fullname}`}
+                </List>
                 <DeleteWrap>
                   <button type="button" onClick={() => dispatch(person.actions.deleteItem(singleUser.id))}> delete</button>
                 </DeleteWrap>
