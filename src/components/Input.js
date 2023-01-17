@@ -44,6 +44,7 @@ export const InputFields = () => {
   };
 
   // feel that input is being edited, when update is pressed, merge/splice editen into list?
+  // if clicked handle array of user, splice with pre-existing? 
 
   return (
     <Wrapper>
