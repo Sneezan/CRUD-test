@@ -43,16 +43,18 @@ export const InputFields = () => {
     setEditable(false);
   };
 
+  // feel that input is being edited, when update is pressed, merge/splice editen into list?
+
   return (
     <Wrapper>
       <InnerWrapper>
-        <div
-          contentEditable={editable}>
-          <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
+          <div>
             <Label htmlFor="name">
               <input
                 type="text"
                 name="name"
+                contentEditable={editable}
                 value={newName}
                 onInput={handleChange}
                 onChange={(e) => setNewName(e.target.value)}
@@ -62,13 +64,14 @@ export const InputFields = () => {
               <input
                 type="text"
                 name="surname"
+                contentEditable={editable}
                 value={newSurname}
                 onInput={handleChange}
                 onChange={(e) => setNewSurname(e.target.value)}
                 placeholder="surname" />
             </Label>
-          </Form>
-        </div>
+          </div>
+        </Form>
       </InnerWrapper>
       <ButtonWrap>
         {!editable && (
@@ -83,6 +86,7 @@ export const InputFields = () => {
           <button
             type="submit"
             onClick={savingText}
+            onSubmit={() => dispatch(person.actions.addItem())}
             onKeyDown={(e) => e.key === 'Enter' && savingText()}>
                   Update
           </button>
