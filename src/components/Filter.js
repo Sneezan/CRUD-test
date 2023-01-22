@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { setNameFilter } from 'reducers/slice'
+import { setNameFilter } from 'reducers/personSlice'
 import styled from 'styled-components'
 
 export const Filter = () => {
