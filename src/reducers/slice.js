@@ -1,56 +1,47 @@
 /* eslint-disable */
 import { createSlice } from '@reduxjs/toolkit';
 
-const person = createSlice({
-  name: 'person',
+const personSlice = createSlice({
+  name: 'personSlice',
   initialState: {
-    items: [
+    people: [
       { id: '1',
-        fullname: ['Karlsson', 'Kalle'],
-        name: 'Kalle',
-        surname: 'Karlsson',
- },
+        firstName: 'Kalle',
+        lastName: 'Karlsson' },
       { id: '2',
-        fullname: ['Andersson', 'Anna'],
-        name: 'Anna',
-        surname: 'Andersson',
- }
+        firstName: 'Anna',
+        lastName: 'Andersson' }
     ],
-    selectedPerson: {
-      id: '',
-      fullname: ['', ''],
-      name: '',
-      surname: '',
-    }
+    selectedPersonId: '',
+    nameFilter: ''
   },
   
   reducers: {
+    addPerson: (store, action) => {
+      store.people = [...store.people, action.payload]
+    },
+    updatePerson: (store, action) => {
+      const index = store.people.findIndex((p) => p.id === action.payload.id)
+      if (index !== -1) {
+        store.people[index] = action.payload
+      }
+    },
     deleteItem: (store, action) => {
-      store.items = store.items.filter((item) => item.id !== action.payload)
+      store.people = store.people.filter((p) => p.id !== action.payload.id)
     },
-    addItem: (store, action) => {
-      store.items.push(action.payload)
+    setSelectPersonId: (store, action) => {
+      store.selectedPersonId = action.payload
     },
-    filterItem: (store, action) => {
-      const updatedFilters = store.filters.map(filter => {
-        if (filter.id === action.payload) {
-          return {
-            ...filter,
-            status: !filter.status
-          }
-        } else {
-          return filter
-        }
-      })
-      store.filters = updatedFilters
-    },
-    editItem: (store, action) => {
-      store.selectedPerson = action.payload;
-    },
-    toggledPerson: (store, action) => {
-      store.selectedPerson = action.payload;
-    },
+    setNameFilter: (store, action) => {
+      store.nameFilter = action.payload
+    }
   }
 });
-export default person;
-
+export const {
+  addPerson,
+  editPerson,
+  deletePerson,
+  setSelectedPersonId,
+  setNameFilter
+} = personSlice.actions;
+export default personSlice.reducer;

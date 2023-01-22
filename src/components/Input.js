@@ -1,129 +1,142 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react'
-import uniqid from 'uniqid'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedPersonId } from 'reducers/personSlice';
+import { deletePerson } from 'reducers/personSlice';
+import { addPerson, editPerson } from 'reducers/personSlice';
 import styled from 'styled-components'
-import person from 'reducers/slice'
-import { OuterWrapper } from './GlobalStyles'
-
+import uniqid from 'uniqid';
+ 
 export const InputFields = () => {
-  const dispatch = useDispatch()
-  const [newName, setNewName] = useState('')
-  const [newSurname, setNewSurname] = useState('')
-  const [editable, setEditable] = useState(false);
-  // const [editedPerson, setEditedPerson] = useState('')
-  const selected = useSelector((store) => store.person.selectedPerson);
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const dispatch = useDispatch();
+  const selectedId = useSelector((store) => store.personSlice.selectedPersonId)
+  const people = useSelector((store) => store.personSlice.people);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const postUser = {
-      id: uniqid(),
-      fullname: [newSurname, newName],
-      name: [newName],
-      surname: [newSurname]
-    };
-    dispatch(person.actions.addItem(postUser))
-    setNewName('');
-    setNewSurname('');
-  };
+  const submitPerson = (e) => {
+  e?.preventDefault(); 
+  if (selectedId) {
+    const updatedPerson = {id:selectedId, firstName, lastName}
+    dispatch(editPerson(updatedPerson))
+  } else {
+    const newPerson = {id:uniqid(), firstName, lastName}
+    dispatch(addPerson(newPerson))
+  }
+  setLastName('');
+  setFirstName(''); 
+  }
+
 
   useEffect(() => {
-    setNewName(selected[1]);
-    setNewSurname(selected[0]);
-  }, [selected])
+   if(selectedId){
+    const index = people.findIndex((p) => p.id === selectedId);
+    if(index !== -1){
+      setFirstName(people[index].firstName)
+      setLastName(people[index].lastName)
+    } 
+   }else {
+    setLastName('');
+    setFirstName(''); 
+  } 
+  }, [selectedId, people])
 
-  const handleChange = (event) => {
-    setEditable(event.target.value);
-  };
+  const onDeleteClick = () => {
+  dispatch(deletePerson(selectedId))
+  dispatch(setSelectedPersonId(''))
+  setLastName('');
+  setFirstName(''); 
+  }
 
-  const editItem = () => {
-    setEditable(true);
-  };
 
-  const savingText = () => {
-    setEditable(false);
-  };
-
-  // feel that input is being edited, when update is pressed, merge/splice editen into list?
-  // if clicked handle array of user, splice with pre-existing? 
 
   return (
-    <Wrapper>
-      <InnerWrapper>
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <Label htmlFor="name">
-              <input
-                type="text"
-                name="name"
-                contentEditable={editable}
-                value={newName}
-                onInput={handleChange}
-                onChange={(e) => setNewName(e.target.value)}
-                placeholder="name" />
-            </Label>
-            <Label htmlFor="surname">
-              <input
-                type="text"
-                name="surname"
-                contentEditable={editable}
-                value={newSurname}
-                onInput={handleChange}
-                onChange={(e) => setNewSurname(e.target.value)}
-                placeholder="surname" />
-            </Label>
-          </div>
-        </Form>
-      </InnerWrapper>
-      <ButtonWrap>
-        {!editable && (
-          <button
-            type="button"
-            onClick={editItem}
-            onKeyDown={(e) => e.key === 'Enter' && editItem()}>
-                  Edit
-          </button>
-        )}
-        {editable && (
-          <button
-            type="submit"
-            onClick={savingText}
-            onSubmit={() => dispatch(person.actions.addItem())}
-            onKeyDown={(e) => e.key === 'Enter' && savingText()}>
-                  Update
-          </button>
-        )}
-        <button type="submit" onClick={handleSubmit}> Create </button>
-        {/* <button type="submit"> Update </button> */}
-      </ButtonWrap>
-    </Wrapper>
+  <PersonForm onSubmit={(e) => submitPerson(e)}>
+    <label htmlFor='firstname'>
+    <input
+    type="text"
+    name="firstname"
+    placeholder='first name'
+    autoComplete='off'
+    value={firstName}
+    onChange={(e) => {setFirstName(e.target.value)}}
+    required
+     />
+
+    </label>
+    <label htmlFor='lastname'>
+    <input
+    type="text"
+    name="lastname"
+    placeholder='last name'
+    value={lastName}
+    autoComplete='off'
+    onChange={(e) => {setLastName(e.target.value)}}
+    required
+     />
+     </label>
+
+     <ButtonWrap>
+     {/* Create */}
+     {!selectedId && <button type="submit">Create</button>} 
+
+     {/* Update */}
+     {selectedId && <button type="submit">Update</button>} 
+
+     {/* Delete */}
+     {selectedId && 
+     <button type="button" onClick={()=>{onDeleteClick()}}>Delete
+     </button>} 
+
+     {/* Cancel */}
+     {selectedId && <button type="submit" onClick={()=>{dispatch(setSelectedPersonId(''))}}>Cancel</button>}           
+
+     </ButtonWrap> 
+  </PersonForm>
+
+
   )
 }
 
-const Wrapper = styled(OuterWrapper)`
-display: flex;
-position: relative;
-`
+const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+ 
+  button {
+    width: 100%;
+    padding: 4px;
+    cursor: pointer;
+    pointer-events: all;
+  }
+ 
+  button + button {
+    margin-left: 10px;
+  }
+`;
 
-const InnerWrapper = styled.div`
-display: flex;
-position: absolute;
-left: 200px;
-top: 110px;
-`
-const ButtonWrap = styled(OuterWrapper)`
-display: flex;
-position: absolute;
-top: 240px;
-left: 250px;
-`
-
-const Form = styled.form`
-display: grid;
-`
-const Label = styled.label`
-display: flex;
-padding: 10px;
-`
-// const Name = styled.p`
-// padding: 0px;
-// `
+const PersonForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin-left: 10px;
+ 
+  label + label {
+    margin-top: 6px;
+  }
+ 
+  label input {
+    width: 100%;
+    padding: 12px;
+    border: 0px;
+    background-color: #ecf1e6;
+    transition: box-shadow 0.1s ease-in-out;
+ 
+    &:focus {
+      outline: 1px solid #bbc3b1;
+      outline-offset: 1px;
+    }
+  }
+`;
