@@ -1,37 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const person = createSlice({
-  name: 'person',
+const personSlice = createSlice({
+  name: 'personSlice',
   initialState: {
-    items: [
+    people: [
       { id: '1',
-        fullname: [' Kalle, Karlsson'],
-        toggled: false },
+        firstName: 'Kalle',
+        lastName: 'Karlsson' },
       { id: '2',
-        fullname: [' Anna, Andersson'],
-        toggled: false }
-    ]
+        firstName: 'Anna',
+        lastName: 'Andersson' }
+    ],
+    selectedPersonId: '',
+    nameFilter: ''
   },
   reducers: {
-    toggleItem: (store, action) => {
-      console.log(store);
-      console.log(action);
-      store.items.forEach((item) => {
-        if (item.id === action.payload) {
-          item.toggled = !item.toggled
-        }
-      })
+    addPerson: (store, action) => {
+      store.people = [...store.people, action.payload]
     },
-    updateItem: (store, action) => {
-      store.items.splice(action.payload)
+    updatePerson: (store, action) => {
+      const index = store.people.findIndex((p) => p.id === action.payload.id)
+      if (index !== -1) {
+        store.people[index] = action.payload
+      }
     },
     deleteItem: (store, action) => {
-      store.items = store.items.filter((item) => item.id !== action.payload)
+      store.people = store.people.filter((p) => p.id !== action.payload.id)
     },
-    addItem: (store, action) => {
-      store.items.push(action.payload)
+    setSelectPersonId: (store, action) => {
+      store.selectedPersonId = action.payload
+    },
+    setNameFilter: (store, action) => {
+      store.nameFilter = action.payload
     }
   }
 });
-
-export default person;
+export const {
+  addPerson,
+  editPerson,
+  deletePerson,
+  setSelectedPersonId,
+  setNameFilter
+} = personSlice.actions;
+export default personSlice.reducer;
