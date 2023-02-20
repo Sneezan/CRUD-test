@@ -78,7 +78,7 @@ export const InputFields = () => {
 
      <ButtonWrap>
      {/* Create */}
-     {!selectedId && <button type="submit">Create</button>} 
+     {!selectedId && <button type="submit">Create new</button>} 
 
      {/* Update */}
      {selectedId && <button type="submit">Update</button>} 
@@ -107,9 +107,20 @@ const ButtonWrap = styled.div`
  
   button {
     width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    border:none;
     padding: 4px;
     cursor: pointer;
     pointer-events: all;
+    background: #3A2D32;
+    color: #ffff;
+    font-size: 1rem;
+    font-weight: 600;
+    &:hover{
+    background: #889772;
+    transition: ease-in .2s;
+    }
   }
  
   button + button {
@@ -130,12 +141,13 @@ const PersonForm = styled.form`
   label input {
     width: 100%;
     padding: 12px;
+    border-radius: 10px;
     border: 0px;
-    background-color: #ecf1e6;
+    background-color: #F5F6F3;
     transition: box-shadow 0.1s ease-in-out;
  
     &:focus {
-      outline: 1px solid #bbc3b1;
+      outline: 1px solid #3A2D32;
       outline-offset: 1px;
     }
   }

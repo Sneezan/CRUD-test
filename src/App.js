@@ -43,9 +43,9 @@ export const App = () => {
 }
 
 const Frame = styled.div`
-  max-width: 800px;
-  min-height: 600px;
-  margin: 10px auto;
+  max-width: 700px;
+  min-height: 500px;
+  margin: 100px auto;
   padding: 10px;
   border-radius: 6px;
   box-shadow: rgb(149 157 165 / 15%) 0px 3px 6px 0px;

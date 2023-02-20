@@ -35,7 +35,6 @@ const PersonTable = styled.table`
   width: 100%;
   height: min-content;
   border-collapse: collapse;
-  border: 1px solid lightgray;
  
   tr,td {
     display: flex;
@@ -48,26 +47,18 @@ const PersonTable = styled.table`
   }
  
   td[role="gridcell"] {
-    padding: 8px;
+    padding: 10px;
+    margin: 2px;
     cursor: pointer;
  
     &:hover {
-      background-color: whitesmoke;
+      background-color: #F5F6F3;
+      border-radius: 10px;
     }
    
     &.selected-cell {
-      background-color: lightblue;
+      background-color: #E2E5DC;
+      border-radius: 10px;
     }
   }
 `;
-
-// const Form = styled.form`
-// display: grid;
-// `
-// const Label = styled.label`
-// display: flex;
-// padding: 10px;
-// `
-
-// <button type="button" onClick={() =>
-// dispatch(person.actions.updateItem(singleUser.id))}> edit</button>

@@ -21,7 +21,7 @@ export const Filter = () => {
         type="search"
         name="search"
         onChange={(e) => onFilterUpdate(e.target.value)}
-        placeholder="sök person"
+        placeholder="search person"
         autoComplete="off" />
     </SearchForm>
   )
@@ -35,10 +35,11 @@ const SearchForm = styled.form`
     padding: 10px 12px;
     border: 0px;
     background-color: #f7f7f7;
+    border-radius: 10px;
     transition: box-shadow 0.1s ease-in-out;
  
     &:focus {
-      outline: 1px solid lightgray;
+      outline: 1px solid #3A2D32;
       outline-offset: 1px;
     }
   }
